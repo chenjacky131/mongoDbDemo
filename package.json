@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "mongodb": "^4.13.0",
+    "multiparty": "^4.2.3"
+  },
+  "name": "api-demo",
+  "version": "1.0.0",
+  "main": "api-server.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

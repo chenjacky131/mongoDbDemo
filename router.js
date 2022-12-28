@@ -3,7 +3,7 @@
 const multiparty = require("multiparty"); //  处理formData对象的中间件
 const { insertData, findData, deleteData, updateData } = require('./db.js');
 const http = require('http');
-const parseFormData = (req, res, handler) => {
+const parseFormData = (req, res, handler) => {  
   const multipart = new multiparty.Form(); //  解析FormData对象
   multipart.parse(req, async (err, fields) => {
     if(err){  //  解析失败
@@ -51,12 +51,12 @@ const handleUpdateDataRoute = async (fields, res) => {
   });
   res.end(JSON.stringify(result));
 }
-const handleLoginRoute = async (fields, res) => {
-  const [code] = fields.code;
+const handleLoginRoute = async (req, res) => {
+  console.log(req)
   const appid = 'wx305dce6b7a47c959';
   const secret = '3030304f1f2c580d224a4288a1c575fe';
   let url = `https://api.weixin.qq.com/sns/jscode2session?appid=${appid}&&secret=${secret}&js_code=${code}&grant_type=authorization_code`;
-  const result = await http.get(url);
+  // const result = await http.get(url);
   console.log(result);
   res.end('登录');
 }
@@ -70,7 +70,7 @@ function route(url, req, res){
   }else if(url === '/updateData'){
     parseFormData(req, res, handleUpdateDataRoute); 
   }else if(url === '/login'){
-    parseFormData(req, res, handleLoginRoute); 
+    handleLoginRoute(req, res); 
   }
 }
 exports.route = route

@@ -53,6 +53,7 @@ const handleUpdateDataRoute = async (fields, res) => {
 }
 const handleLoginRoute = async (req, res) => {
   const code = req.query.code;
+  console.log('code:', code)
   const appid = 'wx305dce6b7a47c959';
   const secret = '3030304f1f2c580d224a4288a1c575fe';
   let url = `https://api.weixin.qq.com/sns/jscode2session?appid=${appid}&&secret=${secret}&js_code=${code}&grant_type=authorization_code`;

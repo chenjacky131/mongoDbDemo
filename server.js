@@ -1,12 +1,13 @@
-const http = require("http");
-const server = http.createServer();
+const express = require('express')
+const app = express()
+const port = 3030
 const { route } = require('./router');
-server.on("request", async (req, res) => {
-  //  设置响应头允许跨域
+app.use('/', (req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "*");
-  route(req.url, req, res);
-})
-server.listen(3030, () => {
-  console.log("服务已启动，http://127.0.0.1:3030")
+  next()
+});
+route(app);
+app.listen(port, () => {
+  console.log(`服务器启动： ${port}`)
 })

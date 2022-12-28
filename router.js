@@ -51,8 +51,8 @@ const handleUpdateDataRoute = async (fields, res) => {
   });
   res.end(JSON.stringify(result));
 }
-const handleLoginRoute = async (fields, res) => {
-  const [code] = fields.code;
+const handleLoginRoute = async (req, res) => {
+  const code = req.query.code;
   const appid = 'wx305dce6b7a47c959';
   const secret = '3030304f1f2c580d224a4288a1c575fe';
   let url = `https://api.weixin.qq.com/sns/jscode2session?appid=${appid}&&secret=${secret}&js_code=${code}&grant_type=authorization_code`;
@@ -60,17 +60,21 @@ const handleLoginRoute = async (fields, res) => {
   console.log(result);
   res.end('登录');
 }
-function route(url, req, res){
-  if(url === "/setData"){
+function route(app){
+  app.post('/setData', (req, res, next) => {
     parseFormData(req, res, handleSetDataRoute); 
-  }else if(url === '/findData'){
+  })
+  app.post('/findData', (req, res, next) => {
     handleFindDataRoute(res)
-  }else if(url === '/deleteData'){
+  })
+  app.post('/deleteData', (req, res, next) => {
     parseFormData(req, res, handleDeleteDataRoute); 
-  }else if(url === '/updateData'){
+  })
+  app.post('/updateData', (req, res, next) => {
     parseFormData(req, res, handleUpdateDataRoute); 
-  }else if(url === '/login'){
-    parseFormData(req, res, handleLoginRoute); 
-  }
+  })
+  app.post('/login', (req, res, next) => {
+    handleLoginRoute(req, res); 
+  })
 }
 exports.route = route

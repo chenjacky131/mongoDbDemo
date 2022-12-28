@@ -56,9 +56,15 @@ const handleLoginRoute = async (req, res) => {
   const appid = 'wx305dce6b7a47c959';
   const secret = '3030304f1f2c580d224a4288a1c575fe';
   let url = `https://api.weixin.qq.com/sns/jscode2session?appid=${appid}&&secret=${secret}&js_code=${code}&grant_type=authorization_code`;
-  const result = await https.get(url);
-  console.log(result);
-  res.end('登录');
+  https.get(url, function(_res){
+    let dataString = '';
+    _res.on("data", function(data){
+      dataString+=data
+    })
+    _res.on('end', function(){
+      res.send(JSON.stringify(dataString));
+    })
+  });
 }
 function route(app){
   app.post('/setData', (req, res, next) => {

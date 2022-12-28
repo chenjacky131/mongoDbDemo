@@ -80,7 +80,7 @@ function route(app){
   app.post('/updateData', (req, res, next) => {
     parseFormData(req, res, handleUpdateDataRoute); 
   })
-  app.post('/login', (req, res, next) => {
+  app.get('/login', (req, res, next) => {
     handleLoginRoute(req, res); 
   })
 }

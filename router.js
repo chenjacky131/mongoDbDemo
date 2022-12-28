@@ -71,7 +71,7 @@ function route(app){
   app.post('/setData', (req, res, next) => {
     parseFormData(req, res, handleSetDataRoute); 
   })
-  app.post('/findData', (req, res, next) => {
+  app.get('/findData', (req, res, next) => {
     handleFindDataRoute(res)
   })
   app.post('/deleteData', (req, res, next) => {

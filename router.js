@@ -7,6 +7,7 @@ const parseFormData = (req, res, handler) => {
   const multipart = new multiparty.Form(); //  解析FormData对象
   multipart.parse(req, async (err, fields) => {
     if(err){  //  解析失败
+      console.log('form解析失败', err)
       return
     }
     handler(fields, res);

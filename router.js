@@ -62,7 +62,7 @@ const handleLoginRoute = async (req, res) => {
       dataString+=data
     })
     _res.on('end', function(){
-      res.send(JSON.stringify(dataString));
+      res.send(dataString);
     })
   });
 }

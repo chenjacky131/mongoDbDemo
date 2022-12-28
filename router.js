@@ -2,7 +2,7 @@
 
 const multiparty = require("multiparty"); //  处理formData对象的中间件
 const { insertData, findData, deleteData, updateData } = require('./db.js');
-const { get } = require('./utils/ajax.js');
+const http = require('http');
 const parseFormData = (req, res, handler) => {
   const multipart = new multiparty.Form(); //  解析FormData对象
   multipart.parse(req, async (err, fields) => {
@@ -55,7 +55,7 @@ const handleLoginRoute = async (fields, res) => {
   const appid = 'wx305dce6b7a47c959';
   const secret = '3030304f1f2c580d224a4288a1c575fe';
   let url = `https://api.weixin.qq.com/sns/jscode2session?appid=${appid}&&secret=${secret}&js_code=${code}&grant_type=authorization_code`;
-  const result = await get(url);
+  const result = await http.get(url);
   console.log(result);
   res.end('登录');
 }
